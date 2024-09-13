@@ -480,41 +480,103 @@ def operators_ribbon(parameters, plot_potential = False, plot_mass = False, plot
     
     return Phi, H, P, indices_to_delete
     
-def get_spectrum(parameters,number_of_bands = int(20)):
-    '''Calculate and plot bands in x direction.'''
-    
+def solve_eigenproblem_square(parameters, energy = 1e-6, number_of_bands = int(1)):
+    '''Calculate and plot bands in x direction.
+        This function assumes that the only possible non-orthogonal degenerate states are at zero energy.'''
+    Nx = parameters['Nx']     # Number of unit cells in x direction
+    Ny = parameters['Ny']     # Number of unit cells in y direction
     #Generate Peierls phases
     np.random.seed(0)
     fluxes = make_fluxes(parameters)
     a_e, a_n = vector_potential(parameters,fluxes)
     parameters['a_e'] = a_e
     parameters['a_n'] = a_n
-
-    #Solve generalised eigenproblem
-
-    Phi, H, P, deleted_indices = operators_square(parameters)
-    eigenvalues = sla.eigsh(H, M=P, k = number_of_bands, tol = 0, sigma = 0.000001, which = 'LM',return_eigenvectors = False)
-
-    return eigenvalues
-
-def get_eigenstates(parameters, energy = 1e-6, number_of_bands = int(1)):
-    '''Calculate and plot bands in x direction.'''
     
-    #Generate Peierls phases
-    np.random.seed(0)
-    fluxes = make_fluxes(parameters)
-    a_e, a_n = vector_potential(parameters,fluxes)
-    parameters['a_e'] = a_e
-    parameters['a_n'] = a_n
 
     #Solve generalised eigenproblem
-
     Phi, H, P, deleted_indices = operators_square(parameters)
     eigenvalues, eigenvectors = sla.eigsh(H, M=P, k = number_of_bands, tol = 0, sigma = energy, which = 'LM',return_eigenvectors = True)
 
-    # Rebuild state
+    #Refill with zeros the deleted spins
+    states = np.zeros((2*Nx*Ny,number_of_bands),dtype = complex)
+    count = 0
+    for index in range(2*Nx*Ny):
+        if index not in deleted_indices:
+            states[index] = (Phi@eigenvectors)[index-count]
+        else:
+            count += 1
 
-    return eigenvalues, eigenvectors
+    #Now make sure they are orthogonal
+    overlaps = states.conjugate().transpose()@states
+    ##The overlap can only be non-zero for degenerate states
+    degenerate_indices = []
+    bulk_indices = []    
+    for i in range(overlaps.shape[0]):
+        sorted = np.flip(np.sort(np.abs(overlaps[i])))
+        if sorted[1]/sorted[0]<0.1: #This threshold (0.1) is a bit arbitrary
+            bulk_indices.append(i)
+        else:
+            degenerate_indices.append(i)
+
+    overlaps_deg = np.delete(overlaps, bulk_indices, axis=0)
+    overlaps_deg = np.delete(overlaps_deg, bulk_indices, axis=1)
+    overlaps_bulk = np.delete(overlaps, degenerate_indices, axis=0)
+    overlaps_bulk = np.delete(overlaps_bulk, degenerate_indices, axis=1)
+
+    states_deg = np.delete(states, bulk_indices, axis=1)
+    states_bulk = np.delete(states, degenerate_indices, axis=1)
+
+    evalues, orthogonal_coeff = np.linalg.eigh(overlaps_deg)
+    orthogonal = np.append(states_deg@orthogonal_coeff, states_bulk , axis=1) #### These are finally the orthogonalised states
+    norm = np.sqrt(np.diag(np.abs(orthogonal.conjugate().transpose()@orthogonal)))
+    states = orthogonal/norm[None,:]
+    
+    # Rebuild state
+    def spin_rotation(site, theta, phi):
+        'Unitary transformation that rotates the spin site to a (theta,phi) orientation'
+        rotation = np.identity(2*Nx*Ny, dtype = complex)
+        
+        spinup = site[0] + site[1]*Nx
+        spindown = site[0] + site[1]*Nx + Nx*Ny
+        
+        rotation[spinup,spinup] = np.cos(theta/2)
+        rotation[spinup,spindown] = np.sin(theta/2)
+        rotation[spindown,spinup] = -np.sin(theta/2)*np.exp(1j*phi)
+        rotation[spindown,spindown] = np.cos(theta/2)*np.exp(1j*phi)
+        
+        return csc_matrix(rotation)
+
+    ##### This following part is specific for the square ######
+      # Now rotate back the spins on the edge
+    theta = parameters['theta']
+    for x in range(Nx-1):
+        rotation = spin_rotation([x,0], theta, pi)
+        states = rotation@states
+
+    for y in range(Ny-1):
+        rotation = spin_rotation([0,y+1], theta, pi/2)
+        states = rotation@states
+        
+    for x in range(Nx-1):
+        rotation = spin_rotation([x+1,Ny-1], theta, 0)
+        states = rotation@states
+        
+    for y in range(Ny-1):
+        rotation = spin_rotation([Nx-1,y], theta,-np.pi/2)
+        states = rotation@states
+
+    ###Now reshape
+    states_shaped = np.reshape(states.flatten('F'), newshape = (number_of_bands,2,Ny,Nx), order = 'C')
+
+    ### Now assign again energies
+    energies = np.zeros(number_of_bands)
+    for i in range(number_of_bands):
+        if i in degenerate_indices:
+            energies[i] = 0 #This should be zero
+        else:
+            energies[i] = eigenvalues[i]
+    
+    return energies, states_shaped, degenerate_indices
 
 def make_bands_x(parameters,number_of_bands = int(20), number_of_points = int(101),kmin = -pi, kmax = pi):
     '''Calculate and plot bands in x direction.'''
