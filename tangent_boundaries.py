@@ -188,8 +188,6 @@ def vector_potential(parameters, fluxes):
     return a_e, a_n
 
 
-################ New code ######################
-
 def operators_square(parameters, plot_potential = False, plot_mass = False, plot_mag_field = False):
     '''Returns operators Phi, H and P for a square 
     geometry boundary condition given by a magnetization that rotates parallel to the edge.'''
