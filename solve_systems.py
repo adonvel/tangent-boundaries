@@ -7,8 +7,9 @@ thetas = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90
 
 i = -1 ### selected value of theta
 Nx = 43 #Assume translational invariance in x direction
-Ny = 33
-nbands = int((Nx*Ny)/100*16)
+Ny = 37
+#nbands = int((Nx*Ny)/100*16)
+200
 print('Bands to calculate: ',nbands)
 
 parameters = dict(
@@ -35,7 +36,7 @@ spectrum_ellipse, states_ellipse, degenerate_indices_ellipse = tb.solve_eigenpro
 print('Saving ellipse spectrum')
 name = 'ellipse_spectrum'
 #np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i]), spectrum, allow_pickle=True)
-np.save(name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i]), spectrum_ellipse, allow_pickle=True)
+np.save(name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_ellipse, allow_pickle=True)
 
 
 
@@ -54,4 +55,4 @@ spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproble
 print('Saving square spectrum')
 name = 'square_spectrum'
 #np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i]), spectrum, allow_pickle=True)
-np.save(name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i]), spectrum_square, allow_pickle=True)
+np.save(name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_square, allow_pickle=True)
