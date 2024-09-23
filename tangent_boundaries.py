@@ -287,23 +287,23 @@ def operators_square(parameters, plot_potential = False, plot_mass = False, plot
         
     # Now rotate the spins on the edge
     theta = parameters['theta']
-    for x in range(Nx):
-        rotation = spin_rotation([x,0], theta,0)
+    for x in range(Nx-1):
+        rotation = spin_rotation([x,0], theta, 0)
         H = rotation.H@H@rotation
         Phi = rotation.H@Phi@rotation
         
-    for y in range(Ny):
-        rotation = spin_rotation([0,y], theta,-np.pi/2)
+    for y in range(Ny-1):
+        rotation = spin_rotation([0,y+1], theta,-pi/2)
         H = rotation.H@H@rotation
         Phi = rotation.H@Phi@rotation
         
-    for x in range(Nx):
-        rotation = spin_rotation([x,Ny-1], theta,-np.pi)
+    for x in range(Nx-1):
+        rotation = spin_rotation([x+1,Ny-1], theta,-pi)
         H = rotation.H@H@rotation
         Phi = rotation.H@Phi@rotation
         
-    for y in range(Ny):
-        rotation = spin_rotation([Nx-1,y], theta,-3*np.pi/2)
+    for y in range(Ny-1):
+        rotation = spin_rotation([Nx-1,y], theta,-3*pi/2)
         H = rotation.H@H@rotation
         Phi = rotation.H@Phi@rotation
     
@@ -600,7 +600,7 @@ def make_bands_x(parameters,number_of_bands = int(20), number_of_points = int(10
 
 ##### The following are for the ellipse
 
-def generate_elipse(r1,r2,npoints=1000):
+def generate_elipse(r1,r2,npoints=10000):
     'Generates the set of points in the grid closest to an elipse with radii r1 and r2 and the angle of the normal vector.'
     theta = np.linspace(0, 2*np.pi, npoints)
     x = r1*np.cos(theta)
