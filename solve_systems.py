@@ -35,15 +35,6 @@ parameters = dict(
 # spectrum_ellipse, states_ellipse, degenerate_indices_ellipse = tb.solve_eigenproblem_ellipse(parameters, number_of_bands = nbands, plot_shape = False)
 
 
-<<<<<<< HEAD
-path = '/home/donisvelaa/data1/tangent-boundaries/'
-print('Saving ellipse spectrum')
-name = 'ellipse_spectrum'
-np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_ellipse, allow_pickle=True)
-print('Saving ellipse eigenstates')
-name = 'ellipse_states'
-np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_ellipse, allow_pickle=True)
-=======
 # path = '/home/donisvelaa/data1/tangent_boundaries/final/'
 # print('Saving ellipse spectrum')
 # name = 'ellipse_spectrum'
@@ -51,7 +42,6 @@ np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+
 # print('Saving ellipse eigenstates')
 # name = 'ellipse_states'
 # np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_ellipse, allow_pickle=True)
->>>>>>> 6bb3a053125d01aefa5cd92589005503894bca91
 
 
 
