@@ -27,21 +27,21 @@ parameters = dict(
     theta = -(pi/2)*(thetas[i]/100),
 )
 
-################## ELLIPSE
-print('Solving ellipse')
-print('theta/(pi/2) = ', thetas[i])
-print('Nx = ', parameters['Nx'])
-print('Ny = ', parameters['Ny'])
-spectrum_ellipse, states_ellipse, degenerate_indices_ellipse = tb.solve_eigenproblem_ellipse(parameters, number_of_bands = nbands, plot_shape = False)
+# ################## ELLIPSE
+# print('Solving ellipse')
+# print('theta/(pi/2) = ', thetas[i])
+# print('Nx = ', parameters['Nx'])
+# print('Ny = ', parameters['Ny'])
+# spectrum_ellipse, states_ellipse, degenerate_indices_ellipse = tb.solve_eigenproblem_ellipse(parameters, number_of_bands = nbands, plot_shape = False)
 
 
-path = '/home/donisvelaa/data1/tangent_boundaries/final/'
-print('Saving ellipse spectrum')
-name = 'ellipse_spectrum'
-np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_ellipse, allow_pickle=True)
-print('Saving ellipse eigenstates')
-name = 'ellipse_states'
-np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_ellipse, allow_pickle=True)
+# path = '/home/donisvelaa/data1/tangent_boundaries/final/'
+# print('Saving ellipse spectrum')
+# name = 'ellipse_spectrum'
+# np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_ellipse, allow_pickle=True)
+# print('Saving ellipse eigenstates')
+# name = 'ellipse_states'
+# np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_ellipse, allow_pickle=True)
 
 
 
@@ -54,7 +54,7 @@ print('theta/(pi/2) = ', thetas[i])
 print('Nx = ', parameters['Nx'])
 print('Ny = ', parameters['Ny'])
 
-spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproblem_ellipse(parameters, number_of_bands = nbands, plot_shape = False)
+spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproblem_square(parameters, number_of_bands = nbands, plot_shape = False)
 
 print('Saving square spectrum')
 name = 'square_spectrum'
