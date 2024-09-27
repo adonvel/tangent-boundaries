@@ -600,7 +600,7 @@ def make_bands_x(parameters,number_of_bands = int(20), number_of_points = int(10
 
 ##### The following are for the ellipse
 
-def generate_elipse(r1,r2,npoints=10000):
+def generate_elipse(r1,r2,npoints=10001):# We want npoints to be of the form 4k+1 to keep the symmetries of ellipses and circles.
     'Generates the set of points in the grid closest to an elipse with radii r1 and r2 and the angle of the normal vector.'
     theta = np.linspace(0, 2*np.pi, npoints)
     x = r1*np.cos(theta)
