@@ -20,6 +20,6 @@ export CWD=$(pwd)
 echo "[$SHELL] ## current working directory: "$CWD
 # Run the file
 echo "[$SHELL] ## Run script"
-srun python3 solve_systems.py
+srun python3 solve_stadium.py
 echo "[$SHELL] ## Script finished"
 echo "[$SHELL] #### Finished Python test. Have a nice day"
