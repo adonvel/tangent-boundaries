@@ -5,7 +5,7 @@
 #SBATCH --mail-user="donisvela@lorentz.leidenuniv.nl"
 #SBATCH --mail-type="ALL"
 #SBATCH --mem-per-cpu=100G
-#SBATCH --time=0-12:00:00
+#SBATCH --time=1-00:00:00
 #SBATCH --partition=cpu-medium
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1

@@ -8,10 +8,10 @@ path = '/home/donisvelaa/data1/tangent-boundaries/'
 thetas = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100]
 
 i = -1 ### selected value of theta
-Nx = 99 #Assume translational invariance in x direction
+Nx = 99
 Ny = 73
-#nbands = int((Nx*Ny)/100*16)
-nbands = 300
+nbands = int((Nx*Ny)/100*16)
+#nbands = 300
 print('Bands to calculate: ',nbands)
 
 parameters = dict(
@@ -27,15 +27,15 @@ parameters = dict(
     theta = -(pi/2)*(thetas[i]/100),
 )
 
-################## ELLIPSE
+# ################## ELLIPSE
 print('Solving ellipse')
 print('theta/(pi/2) = ', thetas[i])
 print('Nx = ', parameters['Nx'])
 print('Ny = ', parameters['Ny'])
 spectrum_ellipse, states_ellipse, degenerate_indices_ellipse = tb.solve_eigenproblem_ellipse(parameters, number_of_bands = nbands, plot_shape = False)
 
+path = '/home/donisvelaa/data1/tangent-boundaries/'
 
-path = '/home/donisvelaa/data1/tangent_boundaries/final/'
 print('Saving ellipse spectrum')
 name = 'ellipse_spectrum'
 np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_ellipse, allow_pickle=True)
@@ -45,20 +45,20 @@ np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+
 
 
 
-# ################## SQUARE
-# parameters['Nx'] =  int(np.round(np.sqrt(pi*Nx*Ny/4))) # We want the square to have the same area as the ellipse
-# parameters['Ny'] =  int(np.round(np.sqrt(pi*Nx*Ny/4)))
+################## SQUARE
+parameters['Nx'] =  int(np.round(np.sqrt(pi*Nx*Ny/4))) # We want the square to have the same area as the ellipse
+parameters['Ny'] =  int(np.round(np.sqrt(pi*Nx*Ny/4)))
 
-# print('Solving square')
-# print('theta/(pi/2) = ', thetas[i])
-# print('Nx = ', parameters['Nx'])
-# print('Ny = ', parameters['Ny'])
+print('Solving square')
+print('theta/(pi/2) = ', thetas[i])
+print('Nx = ', parameters['Nx'])
+print('Ny = ', parameters['Ny'])
 
-# spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproblem_square(parameters, number_of_bands = nbands, plot_shape = False)
+spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproblem_square(parameters, number_of_bands = nbands, plot_shape = False)
 
-# print('Saving square spectrum')
-# name = 'square_spectrum'
-# np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_square, allow_pickle=True)
-# print('Saving square spectrum')
-# name = 'square_states'
-# np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_square, allow_pickle=True)
+print('Saving square spectrum')
+name = 'square_spectrum'
+np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_square, allow_pickle=True)
+print('Saving square spectrum')
+name = 'square_states'
+np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_square, allow_pickle=True)
