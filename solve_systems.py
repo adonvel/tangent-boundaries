@@ -45,20 +45,20 @@ np.save(path+name+'_Nx'+str(Nx)+'_Ny'+str(Ny)+'_theta'+str(thetas[i])+'_nbands'+
 
 
 
-################## SQUARE
-parameters['Nx'] =  int(np.round(np.sqrt(pi*Nx*Ny/4))) # We want the square to have the same area as the ellipse
-parameters['Ny'] =  int(np.round(np.sqrt(pi*Nx*Ny/4)))
+# ################## SQUARE
+# parameters['Nx'] =  int(np.round(np.sqrt(pi*Nx*Ny/4))) # We want the square to have the same area as the ellipse
+# parameters['Ny'] =  int(np.round(np.sqrt(pi*Nx*Ny/4)))
 
-print('Solving square')
-print('theta/(pi/2) = ', thetas[i])
-print('Nx = ', parameters['Nx'])
-print('Ny = ', parameters['Ny'])
+# print('Solving square')
+# print('theta/(pi/2) = ', thetas[i])
+# print('Nx = ', parameters['Nx'])
+# print('Ny = ', parameters['Ny'])
 
-spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproblem_square(parameters, number_of_bands = nbands, plot_shape = False)
+# spectrum_square, states_square, degenerate_indices_square = tb.solve_eigenproblem_square(parameters, number_of_bands = nbands, plot_shape = False)
 
-print('Saving square spectrum')
-name = 'square_spectrum'
-np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_square, allow_pickle=True)
-print('Saving square spectrum')
-name = 'square_states'
-np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_square, allow_pickle=True)
+# print('Saving square spectrum')
+# name = 'square_spectrum'
+# np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), spectrum_square, allow_pickle=True)
+# print('Saving square spectrum')
+# name = 'square_states'
+# np.save(path+name+'_Nx'+str(parameters['Nx'])+'_Ny'+str(parameters['Ny'])+'_theta'+str(thetas[i])+'_nbands'+str(nbands), states_square, allow_pickle=True)
