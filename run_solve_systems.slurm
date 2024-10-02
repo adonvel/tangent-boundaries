@@ -4,9 +4,9 @@
 #SBATCH --error=%x_%j.err
 #SBATCH --mail-user="donisvela@lorentz.leidenuniv.nl"
 #SBATCH --mail-type="ALL"
-#SBATCH --mem-per-cpu=300G
-#SBATCH --time=5-00:00:00
-#SBATCH --partition=cpu-long
+#SBATCH --mem-per-cpu=100G
+#SBATCH --time=0-12:00:00
+#SBATCH --partition=cpu-medium
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
  
@@ -20,6 +20,6 @@ export CWD=$(pwd)
 echo "[$SHELL] ## current working directory: "$CWD
 # Run the file
 echo "[$SHELL] ## Run script"
-srun python3 solve_ellipse.py
+srun python3 solve_square.py
 echo "[$SHELL] ## Script finished"
 echo "[$SHELL] #### Finished Python test. Have a nice day"
