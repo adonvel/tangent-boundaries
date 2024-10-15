@@ -293,7 +293,7 @@ def operators_ribbon(parameters, plot_potential = False, plot_mass = False, plot
         Phi = rotation.H@Phi@rotation
         
     for x in range(Nx):
-        rotation = spin_rotation([x,Ny-1], theta, np.pi)
+        rotation = spin_rotation([x,Ny-1], pi-theta, np.pi)
         H = rotation.H@H@rotation
         Phi = rotation.H@Phi@rotation
     
