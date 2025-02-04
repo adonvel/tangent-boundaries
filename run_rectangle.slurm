@@ -4,12 +4,12 @@
 #SBATCH --error=%x_%j.err
 #SBATCH --mail-user="donisvela@lorentz.leidenuniv.nl"
 #SBATCH --mail-type="ALL"
-#SBATCH --mem-per-cpu=100G
-#SBATCH --time=0-12:00:00
-#SBATCH --partition=cpu-medium
+#SBATCH --mem-per-cpu=50G
+#SBATCH --time=0-04:00:00
+#SBATCH --partition=cpu-short
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --array = 0-39
+#SBATCH --array=0-39
  
 module load Miniconda3
 conda activate general
