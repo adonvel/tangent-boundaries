@@ -20,7 +20,7 @@ sides = [x for x in range(scale_factor,5*scale_factor,1) if abs(x*round(scale_fa
 #print(len(sides))
 
 #spectrum = np.zeros((len(sides),nbands))
-job =int(sys.argv[1])
+job = int(sys.argv[1])
 Lx = sides[job]
     
 parameters['Nx'] = Lx+2
