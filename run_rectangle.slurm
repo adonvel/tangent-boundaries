@@ -5,11 +5,11 @@
 #SBATCH --mail-user="donisvela@lorentz.leidenuniv.nl"
 #SBATCH --mail-type="ALL"
 #SBATCH --mem-per-cpu=50G
-#SBATCH --time=0-04:00:00
-#SBATCH --partition=cpu-short
+#SBATCH --time=0-24:00:00
+#SBATCH --partition=cpu-medium
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --array=0-319
+#SBATCH --array=0-164
  
 module load Miniconda3
 conda activate general

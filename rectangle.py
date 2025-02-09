@@ -8,7 +8,7 @@ import sys
 
 
 
-scale_factor = 80
+scale_factor = 100
 
 area = scale_factor*scale_factor 
 nbands = 10
@@ -16,9 +16,9 @@ parameters = dict()
 parameters['theta'] = -pi/2
 parameters['mass'] = 1/scale_factor
 
-#sides = [x for x in range(scale_factor,5*scale_factor,1) if abs(x*round(scale_factor**2/x)/(scale_factor**2)-1)<0.005]
+sides = [x for x in range(scale_factor,5*scale_factor,1) if abs(x*round(scale_factor**2/x)/(scale_factor**2)-1)<0.005]
 #print(len(sides))
-sides = [x for x in range(scale_factor,5*scale_factor,1) if abs(x*round(scale_factor**2/x)/(scale_factor**2)-1)<1]
+#sides = [x for x in range(scale_factor,5*scale_factor,1) if abs(x*round(scale_factor**2/x)/(scale_factor**2)-1)<1]
 
 
 #spectrum = np.zeros((len(sides),nbands))
