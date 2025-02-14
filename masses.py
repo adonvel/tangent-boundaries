@@ -19,7 +19,7 @@ parameters['Nx'] = Lx+2
 parameters['Ny'] = Ly+2
 
 
-masses = [x/scale_factor for x in np.linspace(0,10,20)]
+masses = [x/scale_factor for x in np.linspace(0,10,100)]
 job = int(sys.argv[1])
 parameters['mass'] = masses[job]
 
@@ -30,5 +30,5 @@ spectrum = np.sort(ener)
 path1 = '/home/donisvelaa/data1/tangent-boundaries/'
 path2 = '/home/donisvelaa/github/tangent-boundaries/data_here/'
 name = 'rectangles_mass'
-np.save(path1+name+'_scalefactor'+str(scale_factor)+'_perimeter'+str(P)+'_mass'+str(masses[job]), spectrum, allow_pickle=True)
-np.save(path2+name+'_scalefactor'+str(scale_factor)+'_perimeter'+str(P)+'_mass'+str(masses[job]), spectrum, allow_pickle=True)
+np.save(path1+name+'_scalefactor'+str(scale_factor)+'_perimeter'+str(P)+'_mass'+str(job), spectrum, allow_pickle=True)
+np.save(path2+name+'_scalefactor'+str(scale_factor)+'_perimeter'+str(P)+'_mass'+str(job), spectrum, allow_pickle=True)

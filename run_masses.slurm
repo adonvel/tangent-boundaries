@@ -9,7 +9,7 @@
 #SBATCH --partition=cpu-short
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --array=0-109
+#SBATCH --array=0-99
  
 module load Miniconda3
 conda activate general
